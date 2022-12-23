@@ -112,10 +112,10 @@ if __name__ == '__main__':
     ls_dataset = prepare_ls()
     coone_dataset = prepare_coone()
 
-    with open('ls_dataset.pickle', 'wb') as handle:
+    with open('dataset_pickles/ls_dataset.pickle', 'wb') as handle:
         pickle.dump(ls_dataset, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-    with open('coone_dataset.pickle', 'wb') as handle:
+    with open('dataset_pickles/coone_dataset.pickle', 'wb') as handle:
         pickle.dump(coone_dataset, handle, protocol=pickle.HIGHEST_PROTOCOL)
     """
 
