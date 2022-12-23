@@ -108,7 +108,7 @@ def create_dataset(ls_dataset, coone_dataset):
 
 if __name__ == '__main__':
 
-
+    """
     ls_dataset = prepare_ls()
     coone_dataset = prepare_coone()
 
@@ -117,19 +117,18 @@ if __name__ == '__main__':
 
     with open('coone_dataset.pickle', 'wb') as handle:
         pickle.dump(coone_dataset, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    """
 
-
-    file = open("ls_dataset.pickle",'rb')
+    file = open("dataset_pickles/ls_dataset.pickle","rb")
     ls_dataset = pickle.load(file)
     file.close()
 
-
-    file = open("coone_dataset.pickle",'rb')
+    file = open("dataset_pickles/coone_dataset.pickle", "rb")
     coone_dataset = pickle.load(file)
     file.close()
 
-    loaded_labels1 = load_labels('ls_caddebostan_bicycle_exceptions.txt')
-    loaded_labels2 = load_labels('ls_ITU_bicycle_exceptions.txt')
+    loaded_labels1 = load_labels('exceptions/ls_caddebostan_bicycle_exceptions.txt')
+    loaded_labels2 = load_labels('exceptions/ls_ITU_bicycle_exceptions.txt')
     ls_dataset.exclude_labels_from_labels(loaded_labels1)
     ls_dataset.exclude_labels_from_labels(loaded_labels2)
     ls_dataset.exclude_labels_from_date('22-05-17')
@@ -142,7 +141,7 @@ if __name__ == '__main__':
     ls_dataset.exclude_labels_from_date('22-08-16')
 
 
-    loaded_labels1 = load_labels('coone_ITU_bicycle_exceptions.txt')
+    loaded_labels1 = load_labels('exceptions/coone_ITU_bicycle_exceptions.txt')
     coone_dataset.exclude_labels_from_labels(loaded_labels1)
 
     create_dataset(ls_dataset, coone_dataset)

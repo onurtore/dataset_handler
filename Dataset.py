@@ -191,27 +191,14 @@ class Dataset():
             label_item.del_label_data()
 
 
-    def clean_by_size(self, h, w):
-        for i in range(len(self.label_items)):
-            print('Checked: ' + str(i) + '/' + str(len(self.label_items)))
-            label_item = self.label_items[i]
-            curr_h, curr_w = label_item.get_size()
-            if h != curr_h or w != curr_w:
-                self.remove_item_idx(i) #TO-DO: Change to list comphrension
-                i -= 1
-
-
     def exclude_labels_from_labels(self, labels):
         for label in labels:
-            found = False
-            for i in range(len(self.label_items)):
-                if label == self.label_items[i].path.split('/')[-1]:
-                    found = True
-                    self.remove_item_idx(i) #TO-DO: Change to list comphrension
-                    break
-            if not found:
-                print("Could not found the label: " + str(label))
-                return
+            label_items = [x for x in self.label_items if x.path.split('/')[-1] != label]
+            image_items = [x for x in self.image_items if x.path.split('/')[-1].replace('.jpg','') != label.replace('.png', '')]
+            assert len(self.image_items) == len(image_items) + 1
+            assert len(label_items) == len(image_items)
+            self.image_items = image_items
+            self.label_items = label_items
         return
 
 
@@ -219,6 +206,7 @@ class Dataset():
         image_items = [x for x in self.image_items if date != x.properties["date"]]
         label_items = [x for x in self.label_items if date != x.properties["date"]]
         assert len(self.image_items) > len(image_items)
+        assert len(image_items) == len(label_items)
         self.image_items = image_items
         self.label_items = label_items
         return
